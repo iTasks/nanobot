@@ -1,12 +1,12 @@
 ---
 name: stock-analysis
-description: "Analyze stock market data from global exchanges (NYSE, DSE, CSE) and forex (FX) with real-time quotes, technical indicators, and AI-powered trading suggestions."
+description: "Analyze stock market data from global exchanges (NYSE, DSE, CSE) and forex (FX) with real-time quotes, technical indicators, AI-powered trading suggestions, financial education, and data visualization."
 metadata: {"nanobot":{"emoji":"📈","requires":{"bins":["curl"]}}}
 ---
 
 # Stock Market Analysis
 
-Use free financial APIs to fetch and analyze stock market data from global exchanges (NYSE, DSE, CSE) and forex markets. Includes AI-powered trading analysis and suggestions.
+Use free financial APIs to fetch and analyze stock market data from global exchanges (NYSE, DSE, CSE) and forex markets. Includes AI-powered trading analysis, financial investment education, technical skills training, and comprehensive data visualization.
 
 ## Quick Stock Quote
 
@@ -516,6 +516,479 @@ If Yahoo Finance is unavailable, try these alternatives:
 - **Alpha Vantage** (free tier): https://www.alphavantage.co (requires API key)
 - **IEX Cloud** (free tier): https://iexcloud.io (requires API key)
 - **Twelve Data** (free tier): https://twelvedata.com (requires API key)
+
+## Financial Investment Education & Technical Skills
+
+### Understanding Investment Fundamentals
+
+**Key Investment Concepts:**
+
+1. **Asset Classes**
+   - **Stocks/Equities**: Ownership shares in companies (higher risk, higher potential return)
+   - **Bonds**: Fixed-income securities (lower risk, steady returns)
+   - **Forex**: Currency trading (high liquidity, 24/5 market)
+   - **Commodities**: Physical goods like gold, oil (inflation hedge)
+   - **ETFs**: Diversified baskets of securities (good for beginners)
+
+2. **Investment Strategies**
+   - **Value Investing**: Buy undervalued stocks and hold long-term (Warren Buffett approach)
+   - **Growth Investing**: Invest in companies with high growth potential
+   - **Dividend Investing**: Focus on stocks that pay regular dividends
+   - **Index Investing**: Track market indices (passive, low-cost approach)
+   - **Day Trading**: Short-term trades within a day (high risk, requires expertise)
+   - **Swing Trading**: Hold positions for days to weeks to capture trends
+
+3. **Risk Management Principles**
+   - **Diversification**: Don't put all eggs in one basket (spread across sectors, regions, asset classes)
+   - **Position Sizing**: Risk only 1-5% of portfolio per trade
+   - **Stop Losses**: Set automatic sell orders to limit losses
+   - **Risk-Reward Ratio**: Aim for at least 1:2 (risk $1 to potentially gain $2)
+   - **Dollar-Cost Averaging**: Invest fixed amounts regularly to reduce timing risk
+
+### Technical Analysis Skills
+
+**Essential Technical Indicators:**
+
+```python
+# Learn to calculate and interpret key indicators
+
+def calculate_sma(prices, period):
+    """Simple Moving Average - trend indicator"""
+    return prices.rolling(window=period).mean()
+
+def calculate_ema(prices, period):
+    """Exponential Moving Average - gives more weight to recent prices"""
+    return prices.ewm(span=period, adjust=False).mean()
+
+def calculate_rsi(prices, period=14):
+    """Relative Strength Index - momentum oscillator (0-100)"""
+    delta = prices.diff()
+    gain = (delta.where(delta > 0, 0)).rolling(window=period).mean()
+    loss = (-delta.where(delta < 0, 0)).rolling(window=period).mean()
+    rs = gain / loss
+    rsi = 100 - (100 / (1 + rs))
+    return rsi
+
+def calculate_macd(prices, fast=12, slow=26, signal=9):
+    """MACD - Moving Average Convergence Divergence"""
+    ema_fast = prices.ewm(span=fast, adjust=False).mean()
+    ema_slow = prices.ewm(span=slow, adjust=False).mean()
+    macd_line = ema_fast - ema_slow
+    signal_line = macd_line.ewm(span=signal, adjust=False).mean()
+    histogram = macd_line - signal_line
+    return macd_line, signal_line, histogram
+
+def calculate_bollinger_bands(prices, period=20, std_dev=2):
+    """Bollinger Bands - volatility indicator"""
+    sma = prices.rolling(window=period).mean()
+    std = prices.rolling(window=period).std()
+    upper_band = sma + (std * std_dev)
+    lower_band = sma - (std * std_dev)
+    return upper_band, sma, lower_band
+```
+
+**Reading Chart Patterns:**
+
+1. **Trend Patterns**
+   - Uptrend: Higher highs and higher lows → bullish signal
+   - Downtrend: Lower highs and lower lows → bearish signal
+   - Sideways: Range-bound → consolidation phase
+
+2. **Reversal Patterns**
+   - Head and Shoulders: Trend reversal (bearish)
+   - Double Top/Bottom: Price tests same level twice and reverses
+   - Cup and Handle: Bullish continuation pattern
+
+3. **Support and Resistance**
+   - Support: Price level where buying pressure prevents further decline
+   - Resistance: Price level where selling pressure prevents further rise
+   - Breakout: Price moves beyond support/resistance with high volume
+
+**Learning Path for Technical Analysis:**
+
+1. **Beginner (Month 1-2)**
+   - Understand candlestick charts (open, high, low, close)
+   - Learn basic indicators: SMA, EMA, RSI
+   - Practice identifying trends and support/resistance
+   - Paper trade to test without real money
+
+2. **Intermediate (Month 3-6)**
+   - Study MACD, Bollinger Bands, Fibonacci retracements
+   - Learn chart patterns (triangles, wedges, flags)
+   - Understand volume analysis
+   - Develop your trading strategy and backtest it
+
+3. **Advanced (Month 6+)**
+   - Master multi-timeframe analysis
+   - Learn advanced patterns and wave theory
+   - Study market psychology and sentiment analysis
+   - Optimize risk management and position sizing
+
+### Fundamental Analysis Skills
+
+**Financial Statement Analysis:**
+
+```python
+def analyze_fundamentals(ticker_data):
+    """Basic fundamental analysis metrics"""
+    
+    # Profitability ratios
+    net_margin = (ticker_data['net_income'] / ticker_data['revenue']) * 100
+    roe = (ticker_data['net_income'] / ticker_data['shareholders_equity']) * 100
+    
+    # Valuation ratios
+    pe_ratio = ticker_data['market_cap'] / ticker_data['net_income']
+    pb_ratio = ticker_data['market_cap'] / ticker_data['book_value']
+    
+    # Growth metrics
+    revenue_growth = ((ticker_data['revenue_current'] - ticker_data['revenue_prior']) / 
+                      ticker_data['revenue_prior']) * 100
+    
+    print(f"Net Profit Margin: {net_margin:.2f}%")
+    print(f"Return on Equity: {roe:.2f}%")
+    print(f"P/E Ratio: {pe_ratio:.2f}")
+    print(f"P/B Ratio: {pb_ratio:.2f}")
+    print(f"Revenue Growth: {revenue_growth:.2f}%")
+    
+    # Interpretation
+    if pe_ratio < 15:
+        print("→ Potentially undervalued (low P/E)")
+    if roe > 15:
+        print("→ Strong profitability (high ROE)")
+    if revenue_growth > 10:
+        print("→ Good growth trajectory")
+```
+
+**Investment Decision Framework:**
+
+1. **Research Phase**
+   - Understand the business model
+   - Analyze competitive advantages
+   - Review financial statements (balance sheet, income statement, cash flow)
+   - Check management quality and corporate governance
+
+2. **Valuation Phase**
+   - Calculate intrinsic value using DCF (Discounted Cash Flow)
+   - Compare P/E, P/B ratios with industry peers
+   - Check dividend yield and payout ratio
+   - Assess growth potential
+
+3. **Risk Assessment**
+   - Evaluate debt levels and liquidity
+   - Consider industry risks and market conditions
+   - Check regulatory environment
+   - Assess geopolitical factors (especially for international stocks)
+
+4. **Decision Making**
+   - Set entry price target
+   - Define exit strategy (profit target and stop loss)
+   - Determine position size based on risk tolerance
+   - Monitor and adjust as needed
+
+### Educational Resources
+
+**Free Learning Platforms:**
+- **Investopedia**: Comprehensive financial education (https://www.investopedia.com)
+- **Khan Academy**: Finance and capital markets courses
+- **Coursera**: Financial Markets by Yale (free to audit)
+- **YouTube**: Financial Education channels (Graham Stephan, Andrei Jikh, The Plain Bagel)
+
+**Practice Platforms:**
+- **TradingView**: Free charting and technical analysis tools
+- **Yahoo Finance**: Paper trading simulator
+- **Investopedia Simulator**: Stock market game with virtual money
+- **Think or Swim**: Advanced paper trading (TD Ameritrade)
+
+**Books Recommendations:**
+1. "The Intelligent Investor" by Benjamin Graham (value investing)
+2. "A Random Walk Down Wall Street" by Burton Malkiel (market basics)
+3. "Technical Analysis of the Financial Markets" by John Murphy
+4. "One Up On Wall Street" by Peter Lynch
+5. "The Little Book of Common Sense Investing" by John Bogle
+
+## Data Visualization & Plotting
+
+Generate visualizations from stock market data and any tabular data.
+
+### Stock Price Plots with Python
+
+```python
+import pandas as pd
+import matplotlib.pyplot as plt
+import json
+from urllib.request import urlopen
+
+def plot_stock_price(symbol, period='3mo'):
+    """Generate comprehensive stock price visualizations"""
+    
+    # Fetch data
+    url = f"https://query1.finance.yahoo.com/v8/finance/chart/{symbol}?interval=1d&range={period}"
+    data = json.loads(urlopen(url).read())
+    
+    result = data['chart']['result'][0]
+    timestamps = result['timestamp']
+    quote = result['indicators']['quote'][0]
+    
+    # Create DataFrame
+    df = pd.DataFrame({
+        'open': quote['open'],
+        'high': quote['high'],
+        'low': quote['low'],
+        'close': quote['close'],
+        'volume': quote['volume']
+    }, index=pd.to_datetime(timestamps, unit='s'))
+    
+    # Calculate indicators
+    df['SMA_20'] = df['close'].rolling(window=20).mean()
+    df['SMA_50'] = df['close'].rolling(window=50).mean()
+    
+    # Create plots
+    fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(14, 10), sharex=True)
+    
+    # Price and moving averages
+    ax1.plot(df.index, df['close'], label='Close Price', color='blue', linewidth=2)
+    ax1.plot(df.index, df['SMA_20'], label='SMA 20', color='orange', linestyle='--')
+    ax1.plot(df.index, df['SMA_50'], label='SMA 50', color='red', linestyle='--')
+    ax1.fill_between(df.index, df['low'], df['high'], alpha=0.1, color='gray')
+    ax1.set_ylabel('Price ($)', fontsize=12)
+    ax1.set_title(f'{symbol} Stock Price Analysis', fontsize=14, fontweight='bold')
+    ax1.legend(loc='upper left')
+    ax1.grid(True, alpha=0.3)
+    
+    # Volume
+    colors = ['green' if df['close'].iloc[i] >= df['open'].iloc[i] else 'red' 
+              for i in range(len(df))]
+    ax2.bar(df.index, df['volume'], color=colors, alpha=0.6)
+    ax2.set_ylabel('Volume', fontsize=12)
+    ax2.set_xlabel('Date', fontsize=12)
+    ax2.grid(True, alpha=0.3)
+    
+    plt.tight_layout()
+    plt.savefig(f'{symbol}_analysis.png', dpi=300, bbox_inches='tight')
+    print(f"Chart saved as {symbol}_analysis.png")
+    plt.show()
+
+# Example usage
+plot_stock_price('AAPL', period='6mo')
+```
+
+### Multiple Chart Types from Tabular Data
+
+```python
+def create_plots_from_data(data, plot_type='line', x_col=None, y_col=None, **kwargs):
+    """
+    Generate various plot types from tabular data
+    
+    Parameters:
+    - data: pandas DataFrame or CSV file path
+    - plot_type: 'line', 'bar', 'scatter', 'pie', 'histogram', 'box'
+    - x_col: column name for x-axis
+    - y_col: column name for y-axis (can be list for multiple series)
+    - kwargs: additional plotting parameters
+    """
+    
+    # Load data if CSV path provided
+    if isinstance(data, str):
+        df = pd.read_csv(data)
+    else:
+        df = data
+    
+    plt.figure(figsize=(12, 6))
+    
+    if plot_type == 'line':
+        # Line chart - great for time series
+        if isinstance(y_col, list):
+            for col in y_col:
+                plt.plot(df[x_col] if x_col else df.index, df[col], label=col, marker='o')
+        else:
+            plt.plot(df[x_col] if x_col else df.index, df[y_col], marker='o', linewidth=2)
+        plt.xlabel(x_col or 'Index')
+        plt.ylabel(y_col if isinstance(y_col, str) else 'Value')
+        plt.title('Line Chart')
+        plt.legend()
+        plt.grid(True, alpha=0.3)
+        
+    elif plot_type == 'bar':
+        # Bar chart - compare categories
+        if isinstance(y_col, list):
+            df.plot(x=x_col, y=y_col, kind='bar', ax=plt.gca())
+        else:
+            plt.bar(df[x_col] if x_col else df.index, df[y_col], color='steelblue')
+        plt.xlabel(x_col or 'Category')
+        plt.ylabel(y_col if isinstance(y_col, str) else 'Value')
+        plt.title('Bar Chart')
+        plt.xticks(rotation=45, ha='right')
+        
+    elif plot_type == 'scatter':
+        # Scatter plot - show relationships
+        plt.scatter(df[x_col], df[y_col], alpha=0.6, s=50, color='coral')
+        plt.xlabel(x_col)
+        plt.ylabel(y_col)
+        plt.title('Scatter Plot')
+        plt.grid(True, alpha=0.3)
+        
+        # Add trend line if requested
+        if kwargs.get('trendline', False):
+            z = np.polyfit(df[x_col].dropna(), df[y_col].dropna(), 1)
+            p = np.poly1d(z)
+            plt.plot(df[x_col], p(df[x_col]), "r--", alpha=0.8, label='Trend')
+            plt.legend()
+    
+    elif plot_type == 'pie':
+        # Pie chart - show proportions
+        plt.pie(df[y_col], labels=df[x_col], autopct='%1.1f%%', startangle=90)
+        plt.title('Pie Chart')
+        plt.axis('equal')
+        
+    elif plot_type == 'histogram':
+        # Histogram - show distribution
+        plt.hist(df[y_col], bins=kwargs.get('bins', 30), color='skyblue', edgecolor='black', alpha=0.7)
+        plt.xlabel(y_col)
+        plt.ylabel('Frequency')
+        plt.title('Histogram')
+        plt.grid(True, alpha=0.3)
+        
+    elif plot_type == 'box':
+        # Box plot - show statistical distribution
+        if isinstance(y_col, list):
+            df[y_col].boxplot()
+        else:
+            df.boxplot(column=y_col, by=x_col if x_col else None)
+        plt.title('Box Plot')
+        plt.suptitle('')  # Remove default title
+    
+    plt.tight_layout()
+    plt.savefig(f'{plot_type}_chart.png', dpi=300, bbox_inches='tight')
+    print(f"Chart saved as {plot_type}_chart.png")
+    plt.show()
+
+# Example usage with stock data
+# Line chart
+create_plots_from_data('stock_data.csv', plot_type='line', x_col='date', y_col='close')
+
+# Multiple lines
+create_plots_from_data('stock_data.csv', plot_type='line', x_col='date', 
+                       y_col=['open', 'close', 'high', 'low'])
+
+# Bar chart comparing volumes
+create_plots_from_data('stock_data.csv', plot_type='bar', x_col='date', y_col='volume')
+
+# Scatter plot: price vs volume
+create_plots_from_data('stock_data.csv', plot_type='scatter', 
+                       x_col='volume', y_col='close', trendline=True)
+
+# Histogram of daily returns
+create_plots_from_data('stock_data.csv', plot_type='histogram', y_col='daily_return', bins=50)
+```
+
+### Advanced Visualization: Candlestick Charts
+
+```python
+import plotly.graph_objects as go
+
+def plot_candlestick(symbol, period='1mo'):
+    """Create interactive candlestick chart with plotly"""
+    
+    # Fetch data
+    url = f"https://query1.finance.yahoo.com/v8/finance/chart/{symbol}?interval=1d&range={period}"
+    data = json.loads(urlopen(url).read())
+    
+    result = data['chart']['result'][0]
+    timestamps = result['timestamp']
+    quote = result['indicators']['quote'][0]
+    
+    df = pd.DataFrame({
+        'date': pd.to_datetime(timestamps, unit='s'),
+        'open': quote['open'],
+        'high': quote['high'],
+        'low': quote['low'],
+        'close': quote['close'],
+        'volume': quote['volume']
+    })
+    
+    # Create candlestick chart
+    fig = go.Figure(data=[go.Candlestick(
+        x=df['date'],
+        open=df['open'],
+        high=df['high'],
+        low=df['low'],
+        close=df['close'],
+        name='Price'
+    )])
+    
+    # Add volume bars
+    fig.add_trace(go.Bar(
+        x=df['date'],
+        y=df['volume'],
+        name='Volume',
+        yaxis='y2',
+        marker_color='rgba(100, 150, 200, 0.3)'
+    ))
+    
+    # Update layout
+    fig.update_layout(
+        title=f'{symbol} Candlestick Chart',
+        yaxis_title='Price ($)',
+        yaxis2=dict(title='Volume', overlaying='y', side='right'),
+        xaxis_rangeslider_visible=False,
+        height=600
+    )
+    
+    fig.write_html(f'{symbol}_candlestick.html')
+    print(f"Interactive chart saved as {symbol}_candlestick.html")
+    fig.show()
+
+# Example usage
+plot_candlestick('AAPL', period='3mo')
+```
+
+### Quick Plot Generation from Any CSV
+
+```bash
+# Using matplotlib directly from command line (requires Python)
+python << EOF
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# Read any CSV file
+df = pd.read_csv('data.csv')
+
+# Auto-detect columns and create appropriate plots
+for col in df.select_dtypes(include=['float64', 'int64']).columns:
+    plt.figure(figsize=(10, 6))
+    df[col].plot(kind='line', title=f'{col} Over Time')
+    plt.savefig(f'{col}_plot.png')
+    print(f"Created {col}_plot.png")
+    plt.close()
+EOF
+
+# One-liner to create a quick line plot
+python -c "import pandas as pd; import matplotlib.pyplot as plt; df = pd.read_csv('data.csv'); df.plot(); plt.savefig('quick_plot.png'); print('Plot saved')"
+```
+
+### Visualization Best Practices
+
+1. **Choose the Right Chart Type**
+   - Line: Time series, trends
+   - Bar: Comparisons between categories
+   - Scatter: Relationships between variables
+   - Pie: Proportions (use sparingly)
+   - Histogram: Distribution of values
+   - Box: Statistical summaries
+
+2. **Design Principles**
+   - Clear titles and labels
+   - Readable font sizes (12-14pt for labels)
+   - Appropriate color schemes (consider colorblind-friendly palettes)
+   - Grid lines for easier reading
+   - Legend when multiple series
+   - High resolution for sharing (300 dpi)
+
+3. **Data Preparation**
+   - Clean missing values
+   - Handle outliers appropriately
+   - Aggregate data if too dense
+   - Sort data logically
 
 ## Data Engineering for Stock Analysis
 
