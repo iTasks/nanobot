@@ -102,7 +102,7 @@ done
 
 ### CSE (Colombo Stock Exchange - Sri Lanka)
 ```bash
-# CSE stocks use .CM suffix
+# CSE stocks use .N0000 suffix (Yahoo Finance format)
 # Example: JKH (John Keells Holdings)
 curl -s "https://query1.finance.yahoo.com/v8/finance/chart/JKH.N0000?interval=1d&range=1d" | jq '.chart.result[0].meta'
 
@@ -335,13 +335,19 @@ def assess_risk_and_suggest_portfolio(symbols, investment_amount=10000):
     analyses = {}
     total_confidence = 0
     
+    # Risk score constants
+    MAX_VOLATILITY_SCORE = 50  # Cap volatility contribution at 50 points
+    MAX_RSI_EXTREMITY = 30     # Cap RSI extremity contribution at 30 points
+    
     for symbol in symbols:
         df = fetch_stock_data(symbol, range_period='3mo')
         analysis = generate_trading_signal(df)
         
         # Calculate risk score (0-100, higher = riskier)
-        volatility_score = min(df['volatility'].iloc[-1] / df['close'].iloc[-1] * 100, 50)
-        rsi_extremity = abs(50 - analysis['rsi']) / 50 * 30  # How far from neutral
+        # Volatility score: percentage volatility capped at 50
+        volatility_score = min(df['volatility'].iloc[-1] / df['close'].iloc[-1] * 100, MAX_VOLATILITY_SCORE)
+        # RSI extremity: distance from neutral (50) scaled to max 30 points
+        rsi_extremity = abs(50 - analysis['rsi']) / 50 * MAX_RSI_EXTREMITY
         risk_score = volatility_score + rsi_extremity
         
         analysis['risk_score'] = risk_score
