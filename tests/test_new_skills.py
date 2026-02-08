@@ -84,6 +84,14 @@ class TestNewSkills:
         assert "Technical Indicators" in content or "indicators" in content.lower()
         # Check for data engineering mention
         assert "Data Engineering" in content or "data engineering" in content.lower()
+        # Check for new exchange support
+        assert "NYSE" in content or "New York Stock Exchange" in content
+        assert "DSE" in content or "Dhaka" in content
+        assert "CSE" in content or "Colombo" in content
+        # Check for FX/Forex support
+        assert "FX" in content or "Forex" in content or "forex" in content.lower()
+        # Check for AI trading suggestions
+        assert "AI" in content or "trading" in content.lower()
     
     def test_code_performance_content_structure(self, skills_loader):
         """Test that code-performance skill has expected sections."""
