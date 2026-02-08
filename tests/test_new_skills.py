@@ -93,7 +93,7 @@ class TestNewSkills:
         # Check for AI trading suggestions
         assert "AI" in content or "trading" in content.lower()
         # Check for financial education
-        assert "Investment" in content or "investment" in content.lower()
+        assert "investment" in content.lower()
         assert "education" in content.lower() or "learning" in content.lower()
         # Check for visualization/plotting
         assert "plot" in content.lower() or "visualization" in content.lower() or "chart" in content.lower()

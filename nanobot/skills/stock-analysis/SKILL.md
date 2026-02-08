@@ -775,6 +775,8 @@ plot_stock_price('AAPL', period='6mo')
 ### Multiple Chart Types from Tabular Data
 
 ```python
+import numpy as np  # Required for trendline calculations
+
 def create_plots_from_data(data, plot_type='line', x_col=None, y_col=None, **kwargs):
     """
     Generate various plot types from tabular data
